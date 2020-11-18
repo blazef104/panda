@@ -60,7 +60,6 @@
   - [Looking at the Logfile](#looking-at-the-logfile)
   - [External References](#external-references)
 - [LLVM](#llvm)
-  - [Building LLVM](#building-llvm)
   - [Execution](#execution)
   - [How to use it for analysis](#how-to-use-it-for-analysis)
 - [Wish List](#wish-list)
@@ -1130,8 +1129,10 @@ written via `zlib` file access functions for compression.
 
 ### Looking at the Logfile
 
-There is a small program in `panda/src/plog_reader.cpp`, which also serves as an example of reading/writing with the C++ pandalog API.
-Compilation directions are at the head of that source file. You can also use the `panda/scripts/plog_reader.py` script to view a log, which is more convenient but slower.
+There is a small program in `panda/src/example_plog_reader.cpp`, which also serves as an example of reading/writing with the C++ pandalog API.
+Compilation directions are at the head of that source file. This example will only print the PC and instr. You can customize the source code to read additional information from your pandalog.
+
+You can also use the `panda/scripts/plog_reader.py` script to view a log. This will read not require edits to the code, however this method may be slower. 
 
 You can read a pandalog using either program and also see how easy it is to
 unmarshall the pandalog.  Here's how to use it and some of its output.
@@ -1164,35 +1165,6 @@ QEMU's intermediate representation, TCG, to LLVM IR, which is easier to
 understand and platform-independent. We call this process "lifting". Lifting has
 non-trivial overhead, but it enables complex analyses like our `taint2` plugin.
 
-### Building LLVM
-
-To build LLVM (if your OS does not have llvm-3.3 packages), run the following
-script:
-```bash
-cd panda
-svn checkout http://llvm.org/svn/llvm-project/llvm/tags/RELEASE_33/final/ llvm
-cd llvm/tools
-svn checkout http://llvm.org/svn/llvm-project/cfe/tags/RELEASE_33/final/ clang
-cd -
-cd llvm/tools/clang/tools
-svn checkouthttp://llvm.org/svn/llvm-project/clang-tools-extra/tags/RELEASE_33/final/ extra
-cd -
-cd llvm
-./configure --enable-optimized --disable-assertions --enable-targets=x86 && \
-    REQUIRES_RTTI=1 make -j $(nproc)
-cd -
-```
-This will build a "Release" build of LLVM. You can use `PANDA_LLVM_BUILD` to
-have PANDA use a different build, like Debug or Debug+Asserts. You will also
-have to build the other build using e.g. `--disable-optimized
---enable-debug-runtime`. You can also use `PANDA_LLVM_ROOT` to specify where to
-find your LLVM build.
-
-With LLVM enabled and g++-4.9 or greater, you will get an error involving
-max_align_t for some of the plugins. You will need to [patch
-clang](http://reviews.llvm.org/rL201729) to provide `max_align_t`. You can also
-use the CC and CXX env variables to use an earlier version of GCC to compile
-PANDA.
 
 <!--
 	In case the diff from llvm.org goes away, this is a backup:
