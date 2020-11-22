@@ -313,6 +313,7 @@ def main(install=False,recompile=True):
 
     #   other PPP headers: callstack_instr. TODO: more
     copy_ppp_header("%s/%s" % (PLUGINS_DIR+"/callstack_instr", "callstack_instr.h"))
+    copy_ppp_header("%s/%s" % (PLUGINS_DIR+"/osi", "os_intro.h"))
 
     copy_ppp_header("%s/%s" % (PLUGINS_DIR+"/hooks2", "hooks2_ppp.h"))
     create_pypanda_header("%s/%s" % (PLUGINS_DIR+"/hooks2", "hooks2.h"))

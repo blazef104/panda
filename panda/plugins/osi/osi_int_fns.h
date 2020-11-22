@@ -4,6 +4,7 @@
 // api autogen needs it.  And don't put any compiler directives
 // between this and END_PYPANDA_NEEDS_THIS except includes of other
 // files in this directory that contain subsections like this one.
+typedef void (*on_task_change_t)(CPUState *);
 
 // returns minimal handles for processes in an array
 GArray *get_process_handles(CPUState *cpu);
@@ -29,8 +30,6 @@ OsiProc* get_one_proc(GArray *osiprocs, unsigned int idx);
 
 void cleanup_garray(GArray *g);
 
-// END_PYPANDA_NEEDS_THIS -- do not delete this comment!
-
 // gets the currently running process handle
 OsiProcHandle *get_current_process_handle(CPUState *cpu);
 
@@ -42,3 +41,5 @@ target_pid_t get_process_pid(CPUState *cpu, const OsiProcHandle *h);
 target_pid_t get_process_ppid(CPUState *cpu, const OsiProcHandle *h);
 
 void notify_task_change(CPUState *cpu);
+
+// END_PYPANDA_NEEDS_THIS -- do not delete this comment!
