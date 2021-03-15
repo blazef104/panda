@@ -161,6 +161,7 @@ MAKE_CALLBACK(void, MAIN_LOOP_WAIT, main_loop_wait, void);
 
 MAKE_CALLBACK(void, PRE_SHUTDOWN, pre_shutdown, void);
 
+MAKE_CALLBACK(bool, RDTSC, rdtsc, CPUState*, env, uint64_t, val);
 
 // Non-standard callbacks below here
 

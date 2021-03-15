@@ -297,6 +297,7 @@ int64_t cpu_get_ticks(void)
     }
 
     timers_state.cpu_ticks_prev = ticks;
+    
     return ticks;
 }
 

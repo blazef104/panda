@@ -39,3 +39,5 @@ win7x86intro
 wintrospection
 winxpx86intro
 syscalls_logger
+timing_patch
+syscall_hook

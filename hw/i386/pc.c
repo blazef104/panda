@@ -69,7 +69,7 @@
 #include "qom/cpu.h"
 #include "hw/nmi.h"
 #include "hw/i386/intel_iommu.h"
-
+#include "panda/callbacks/cb-support.h"
 /* debug PC/ISA interrupts */
 //#define DEBUG_IRQ
 
@@ -153,6 +153,10 @@ static uint64_t ioportF0_read(void *opaque, hwaddr addr, unsigned size)
 /* TSC handling */
 uint64_t cpu_get_tsc(CPUX86State *env)
 {
+    // CPUState *cpu = CPU(x86_env_get_cpu(env));
+    // int32_t diff = 1;
+    // panda_callbacks_rdtsc(cpu,&diff); // the user can specify an amount that can be subtracted from tsc
+    // //printf("Diff: %d\n", diff);
     return cpu_get_ticks();
 }
 

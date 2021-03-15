@@ -97,6 +97,8 @@ typedef enum panda_cb_type {
 
     PANDA_CB_BEFORE_HANDLE_INTERRUPT, // ditto, for interrupts
 
+    PANDA_CB_RDTSC,
+
     PANDA_CB_LAST
 } panda_cb_type;
 
@@ -998,6 +1000,8 @@ typedef union panda_cb {
 
 
     int32_t (*before_handle_interrupt)(CPUState *cpu, int32_t interrupt_request);
+
+    bool (*rdtsc)(CPUState *env, uint64_t val);
 
     void (*cbaddr)(void);
 } panda_cb;
